@@ -6,75 +6,82 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <title>Hire People</title>
-
+    <title>Post a Job</title>
     <link rel="stylesheet" href="form.css">
 
     <script>
-        function validateForm() {
-            let jobTitle = document.getElementById("jobtitle").value.trim();
-            let companyName = document.getElementById("companyname").value.trim();
-            let jobDescription = document.getElementById("jobdescription").value.trim();
-            let commission = document.getElementById("commission").value.trim();
-            let contactEmail = document.getElementById("contactemail").value.trim();
-            let applicationDeadline = document.getElementById("applicationdeadline").value;
+        function submitJob(e) {
+            e.preventDefault();
+
             let result = document.getElementById("result");
 
-            result.innerHTML = "";
+            // Get form values
+            let jobtitle = document.getElementById("jobtitle").value.trim();
+            let companyname = document.getElementById("companyname").value.trim();
+            let jobdescription = document.getElementById("jobdescription").value.trim();
+            let commission = document.getElementById("commission").value.trim();
+            let contactemail = document.getElementById("contactemail").value.trim();
+            let deadline = document.getElementById("applicationdeadline").value;
+            let jobFile = document.getElementById("jobfile").files[0];
 
-            if (jobTitle === "" || companyName === "" || jobDescription === "" ||
-                commission === "" || contactEmail === "" || applicationDeadline === "") {
+            // Basic validation
+            if (!jobtitle || !companyname || !jobdescription || !commission || !contactemail || !deadline) {
                 result.style.color = "red";
                 result.innerHTML = "All fields are required";
-                return false;
+                return;
             }
 
-            if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+            if (!/\S+@\S+\.\S+/.test(contactemail)) {
                 result.style.color = "red";
                 result.innerHTML = "Invalid email format";
-                return false;
+                return;
             }
-            return true;
 
             if (isNaN(commission)) {
                 result.style.color = "red";
                 result.innerHTML = "Commission must be a number";
-                return false;
+                return;
             }
-        }
 
-        function submitJob(e) {
-            e.preventDefault();
+            // File validation (optional)
+            if (jobFile) {
+                let allowed = ['image/jpeg', 'image/png', 'application/pdf'];
+                let maxSize = 2 * 1024 * 1024; // 2MB
 
-            if (!validateForm()) return;
+                if (!allowed.includes(jobFile.type)) {
+                    result.style.color = "red";
+                    result.innerHTML = "Only JPG, PNG, PDF allowed";
+                    return;
+                }
+                if (jobFile.size > maxSize) {
+                    result.style.color = "red";
+                    result.innerHTML = "File must be < 2MB";
+                    return;
+                }
+            }
+
+            // Send form via AJAX
+            let form = document.getElementById("jobForm");
+            let formData = new FormData(form);
 
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "../Controller/FormControl.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.open("POST", "../../Controller/FormControl.php", true);
 
-            xhr.onload = function() {
-                let result = document.getElementById("result");
+            xhr.onload = function () {
+                console.log("Raw response:", xhr.responseText); // Debug
                 try {
                     let res = JSON.parse(xhr.responseText);
                     result.style.color = res.success ? "green" : "red";
                     result.innerHTML = res.message;
-                } catch {
+                } catch (err) {
                     result.style.color = "red";
-                    result.innerHTML = "Server error";
+                    result.innerHTML = "Server error: " + xhr.responseText;
                 }
             };
 
-            xhr.send(
-                "jobtitle=" + encodeURIComponent(jobtitle.value) +
-                "&companyname=" + encodeURIComponent(companyname.value) +
-                "&jobdescription=" + encodeURIComponent(jobdescription.value) +
-                "&commission=" + encodeURIComponent(commission.value) +
-                "&contactemail=" + encodeURIComponent(contactemail.value) +
-                "&applicationdeadline=" + encodeURIComponent(applicationdeadline.value)
-            );
+            xhr.send(formData); 
         }
     </script>
-
 </head>
 
 <body class="form-body">
@@ -86,39 +93,40 @@ session_start();
         <form id="jobForm" onsubmit="submitJob(event)" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Job Title:</label>
-                <input type="text" id="jobtitle" placeholder="Enter job title"><br>
+                <input type="text" name="jobtitle" id="jobtitle" placeholder="Enter job title"><br>
             </div>
             <div class="form-group">
                 <label>Company Name:</label>
-                <input type="text" id="companyname" placeholder="Enter company name"><br>
+                <input type="text" name="companyname" id="companyname" placeholder="Enter company name"><br>
             </div>
             <div class="form-group">
                 <label>Job Description:</label>
-                <textarea id="jobdescription" rows="5"></textarea><br>
+                <textarea name="jobdescription" id="jobdescription" rows="5"></textarea><br>
             </div>
             <div class="form-group">
                 <label>Commission:</label>
-                <input type="text" id="commission" placeholder="Enter commission Amount"><br>
+                <input type="text" name="commission" id="commission" placeholder="Enter commission amount"><br>
             </div>
             <div class="form-group">
                 <label>Contact Email:</label>
-                <input type="email" id="contactemail" placeholder="Enter your email address"><br>
+                <input type="email" name="contactemail" id="contactemail" placeholder="Enter your email"><br>
             </div>
             <div class="form-group">
                 <label>Application Deadline:</label>
-                <input type="date" id="applicationdeadline"><br>
+                <input type="date" name="applicationdeadline" id="applicationdeadline"><br>
             </div>
-            <input type="file" name="jobfile" id="jobfile"><br>
-            <input id="submit" type="submit" value="Post">
-            <button id="reset" type="reset">Reset</button><br><br>
+            <div class="form-group">
+                <label>Attach File (optional):</label>
+                <input type="file" name="jobfile" id="jobfile"><br>
+            </div>
 
+            <input type="submit" value="Post">
+            <button type="reset">Reset</button><br><br>
+
+            <button type="button" onclick="window.location.href='customerhome.php'">Back to Home</button>
 
             <p id="result" class="result-message"></p>
         </form>
-
-        <button type="button" onclick="window.location.href='customerhome.php'">Back to Home</button>
-
     </div>
 </body>
-
 </html>
