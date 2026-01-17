@@ -59,13 +59,13 @@ if ($remember === "true") {
 $redirect = "";
 switch ($user["role"]) {
     case "admin":
-        $redirect = "../View/Admin_View/home.php";
+        $redirect = "../View/Admin_View/adminhome.php";
         break;
     case "customer":
-        $redirect = "../View/Company_View/home.php";
+        $redirect = "../View/Company_View/customerhome.php";
         break;
     case "student":
-        $redirect = "../View/Student_worker_View/home.php";
+        $redirect = "../View/Student_worker_View/studenthome.php";
         break;
     default:
         $redirect = "../View/Login.php";
