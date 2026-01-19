@@ -1,9 +1,26 @@
+<?php
+require_once "../../Model/adminModel.php";
+$adminModel = new AdminModel();
+
+//card e count
+$students = $adminModel->getAllStudents();
+$companies = $adminModel->getAllCompanies();
+$projects = $adminModel->getAllProjects();
+$users = $adminModel->getAllUsers();
+
+//table
+$student = $adminModel->getStudents();
+$company = $adminModel->getCompanies();
+$proj = $adminModel->getProjects();
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>studern Admin Dashboard</title>
     <link rel="stylesheet" href="Css/adminhome.css">
 </head>
+
 <body>
 
     <div class="header">
@@ -13,32 +30,48 @@
             <a href="../../Controller/admin/manageStudents.php">Manage Students</a>
             <a href="../../Controller/admin/manageCompanies.php">Manage Companies</a>
             <a href="../../Controller/admin/manageProjects.php">Manage Projects</a>
-            <a href="../../Controller/admin/systemActivity.php">FeedBack and Requests</a>
+            <a href="../../Controller/admin/feedback.php">FeedBack and Requests</a>
             <a href="../logout.php" class="logout">Logout</a>
         </div>
     </div>
 
     <div class="main-content">
         <div class="stats-grid">
-            <div class="stat-card"><h4>Total Students</h4><div class="number"><?php echo $stats['totalStudents']; ?></div></div>
-            <div class="stat-card"><h4>Total Companies</h4><div class="number"><?php echo $stats['totalCompanies']; ?></div></div>
-            <div class="stat-card"><h4>Projects Posted</h4><div class="number"><?php echo $stats['totalProjects']; ?></div></div>
-            <div class="stat-card"><h4>Applications Submitted</h4><div class="number"><?php echo $stats['totalApplications']; ?></div></div>
+            <div class="stat-card">
+                <h4>Total Students</h4>
+                <div class="number"><?php echo $students; ?></div>
+            </div>
+            <div class="stat-card">
+                <h4>Total Companies</h4>
+                <div class="number"><?php echo $companies; ?></div>
+            </div>
+            <div class="stat-card">
+                <h4>Projects Posted</h4>
+                <div class="number"><?php echo $projects; ?></div>
+            </div>
+            <div class="stat-card">
+                <h4>Total Users</h4>
+                <div class="number"><?php echo $users; ?></div>
+            </div>
+
         </div>
 
         <div class="section">
-            <h3>Recent Student Registrations</h3>
-            <table>
+            <h3>Student Registrations</h3>
+            <table border="1">
                 <tr>
-                    <th>ID</th><th>Name</th><th>Email</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
                 </tr>
                 <?php
-                if ($recentStudents && mysqli_num_rows($recentStudents) > 0) {
-                    while ($student = mysqli_fetch_assoc($recentStudents)) {
+                $studentResult = $adminModel->getStudents();
+                if ($studentResult && mysqli_num_rows($studentResult) > 0) {
+                    while ($studentRow = mysqli_fetch_assoc($studentResult)) {
                         echo "<tr>
-                            <td>{$student['id']}</td>
-                            <td>{$student['name']}</td>
-                            <td>{$student['email']}</td>
+                            <td>{$studentRow['id']}</td>
+                            <td>{$studentRow['name']}</td>
+                            <td>{$studentRow['email']}</td>
                         </tr>";
                     }
                 } else {
@@ -49,18 +82,21 @@
         </div>
 
         <div class="section">
-            <h3>Recent Company Registrations</h3>
-            <table>
+            <h3>Company Registrations</h3>
+            <table border="1">
                 <tr>
-                    <th>ID</th><th>Name</th><th>Email</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
                 </tr>
                 <?php
-                if ($recentCompanies && mysqli_num_rows($recentCompanies) > 0) {
-                    while ($company = mysqli_fetch_assoc($recentCompanies)) {
+                $companyResult = $adminModel->getCompanies();
+                if ($companyResult && mysqli_num_rows($companyResult) > 0) {
+                    while ($companyRow = mysqli_fetch_assoc($companyResult)) {
                         echo "<tr>
-                            <td>{$company['id']}</td>
-                            <td>{$company['name']}</td>
-                            <td>{$company['email']}</td>
+                            <td>{$companyRow['id']}</td>
+                            <td>{$companyRow['name']}</td>
+                            <td>{$companyRow['email']}</td>
                         </tr>";
                     }
                 } else {
@@ -71,25 +107,32 @@
         </div>
 
         <div class="section">
-            <h3>Recent Projects Posted</h3>
-            <table>
+            <h3>Projects Posted</h3>
+            <table border="1">
                 <tr>
-                    <th>Project ID</th><th>Title</th><th>Company</th><th>Description</th><th>Commission</th>
+                    <th>Project ID</th>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Description</th>
+                    <th>Commission</th>
                 </tr>
                 <?php
-                if ($recentProjects && mysqli_num_rows($recentProjects) > 0) {
-                    while ($proj = mysqli_fetch_assoc($recentProjects)) {
+                $projectResult = $adminModel->getProjects();
+
+                if ($projectResult && mysqli_num_rows($projectResult) > 0) {
+                    while ($projectRow = mysqli_fetch_assoc($projectResult)) {
                         echo "<tr>
-                            <td>{$proj['id']}</td>
-                            <td>{$proj['jobtitle']}</td>
-                            <td>{$proj['companyname']}</td>
-                            <td>{$proj['jobdescription']}</td>
-                            <td>{$proj['commission']}</td>
-                        </tr>";
+            <td>{$projectRow['id']}</td>
+            <td>{$projectRow['jobtitle']}</td>
+            <td>{$projectRow['companyname']}</td>
+            <td>{$projectRow['jobdescription']}</td>
+            <td>{$projectRow['commission']}</td>
+        </tr>";
                     }
                 } else {
                     echo "<tr><td colspan='5'>No projects found</td></tr>";
                 }
+
                 ?>
             </table>
         </div>
@@ -97,4 +140,5 @@
     </div>
 
 </body>
+
 </html>
