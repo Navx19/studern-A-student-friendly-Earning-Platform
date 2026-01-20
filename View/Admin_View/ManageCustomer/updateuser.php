@@ -19,7 +19,7 @@ $user = $adminModel->findUser($_GET["user_id"]);
     <h1>Update User Information</h1>
     <form action="../../../Controller/admin/manageCompanies.php" method="POST">
         User ID:
-        <input type="text" name="id" value="<?php echo $user['id']; ?>" readonly><br><br>
+        <input type="text" name="userId" value="<?php echo $user['userId']; ?>" readonly><br><br>
 
         Name:
         <input type="text" name="name" value="<?php echo $user['name']; ?>"><br><br>

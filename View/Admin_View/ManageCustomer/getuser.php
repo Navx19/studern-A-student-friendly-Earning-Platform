@@ -22,13 +22,13 @@ $adminModel = new AdminModel();
         if ($company && mysqli_num_rows($company) > 0) {
             while ($companyRow = mysqli_fetch_assoc($company)) {
                 echo "<tr>
-                        <td>{$companyRow['id']}</td>
+                        <td>{$companyRow['userId']}</td>
                         <td>{$companyRow['name']}</td>
                         <td>{$companyRow['email']}</td>
-                        <td><a href='/studern/View/Admin_View/ManageCustomer/updateuser.php?user_id={$companyRow['id']}'>Update</a></td>
+                        <td><a href='/studern/View/Admin_View/ManageCustomer/updateuser.php?user_id={$companyRow['userId']}'>Update</a></td>
                         <td>
                             <form method='POST' action='/studern/Controller/admin/manageCompanies.php'>
-                                <input type='hidden' name='id' value='{$companyRow['id']}'>
+                                <input type='hidden' name='userId' value='{$companyRow['userId']}'>
                                 <input type='submit' name='delete' value='Delete'>
                             </form>
                         </td>

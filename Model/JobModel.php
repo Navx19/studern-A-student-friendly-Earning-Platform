@@ -5,28 +5,41 @@ class JobModel {
     private $conn;
 
     public function __construct() {
-        $db = new DatabaseConnection();
-        $this->conn = $db->openConnection();
+    $db = new DatabaseConnection();
+    $this->conn = $db->openConnection();
+}
+
+public function insertJob($jobtitle, $companyname, $jobdescription, $commission, $contactemail, $deadline, $filename) {
+
+    if (!isset($_SESSION["id"])) {
+        return ["success" => false, "message" => "User not logged in"];
     }
 
-    public function insertJob($jobtitle, $companyname, $jobdescription, $commission, $contactemail, $deadline, $filename) {
-        $stmt = $this->conn->prepare(
-            "INSERT INTO jobs (jobtitle, companyname, jobdescription, commission, contactemail, applicationdeadline, jobfile)
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
-        );
+    $customerId = $_SESSION["id"];
 
-        $stmt->bind_param("sssdsss", $jobtitle, $companyname, $jobdescription, $commission, $contactemail, $deadline, $filename);
+    $stmt = $this->conn->prepare(
+        "INSERT INTO jobs 
+        (jobtitle, companyname, jobdescription, commission, contactemail, applicationdeadline, jobfile, customerId)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    );
 
-        if ($stmt->execute()) {
-            return ["success" => true, "message" => "Job posted successfully"];
-        } else {
-            return ["success" => false, "message" => "Database insert failed: " . $stmt->error];
-        }
+    $stmt->bind_param(
+        "sssdsssi",
+      
+        $jobtitle,
+        $companyname,
+        $jobdescription,
+        $commission,
+        $contactemail,
+        $deadline,
+        $filename,
+        $customerId
+    );
+
+    if ($stmt->execute()) {
+        return ["success" => true, "message" => "Job posted successfully"];
+    } else {
+        return ["success" => false, "message" => "Database insert failed: " . $stmt->error];
     }
-
-    public function __destruct() {
-        if ($this->conn) {
-            $this->conn->close();
-        }
-    }
+}
 }

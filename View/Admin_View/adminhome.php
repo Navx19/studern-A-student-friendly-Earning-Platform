@@ -1,5 +1,6 @@
 <?php
-require_once "../../Model/adminModel.php";
+session_start();
+require_once __DIR__ . "/../../Model/adminModel.php";
 $adminModel = new AdminModel();
 
 //card e count
@@ -8,10 +9,6 @@ $companies = $adminModel->getAllCompanies();
 $projects = $adminModel->getAllProjects();
 $users = $adminModel->getAllUsers();
 
-//table
-$student = $adminModel->getStudents();
-$company = $adminModel->getCompanies();
-$proj = $adminModel->getProjects();
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +25,7 @@ $proj = $adminModel->getProjects();
         <h3> Admin Dashboard</h3>
         <div class="header-links">
             <a href="../../Controller/admin/manageStudents.php">Manage Students</a>
-            <a href="../../Controller/admin/manageCompanies.php">Manage Companies</a>
+            <a href="../../Controller/admin/manageCompanies.php">Manage Customers</a>
             <a href="../../Controller/admin/manageProjects.php">Manage Projects</a>
             <a href="../../Controller/admin/feedback.php">FeedBack and Requests</a>
             <a href="../logout.php" class="logout">Logout</a>
@@ -42,7 +39,7 @@ $proj = $adminModel->getProjects();
                 <div class="number"><?php echo $students; ?></div>
             </div>
             <div class="stat-card">
-                <h4>Total Companies</h4>
+                <h4>Total Customers</h4>
                 <div class="number"><?php echo $companies; ?></div>
             </div>
             <div class="stat-card">
@@ -69,7 +66,7 @@ $proj = $adminModel->getProjects();
                 if ($studentResult && mysqli_num_rows($studentResult) > 0) {
                     while ($studentRow = mysqli_fetch_assoc($studentResult)) {
                         echo "<tr>
-                            <td>{$studentRow['id']}</td>
+                            <td>{$studentRow['userId']}</td>
                             <td>{$studentRow['name']}</td>
                             <td>{$studentRow['email']}</td>
                         </tr>";
@@ -94,7 +91,7 @@ $proj = $adminModel->getProjects();
                 if ($companyResult && mysqli_num_rows($companyResult) > 0) {
                     while ($companyRow = mysqli_fetch_assoc($companyResult)) {
                         echo "<tr>
-                            <td>{$companyRow['id']}</td>
+                            <td>{$companyRow['userId']}</td>
                             <td>{$companyRow['name']}</td>
                             <td>{$companyRow['email']}</td>
                         </tr>";
@@ -122,7 +119,7 @@ $proj = $adminModel->getProjects();
                 if ($projectResult && mysqli_num_rows($projectResult) > 0) {
                     while ($projectRow = mysqli_fetch_assoc($projectResult)) {
                         echo "<tr>
-            <td>{$projectRow['id']}</td>
+            <td>{$projectRow['jobId']}</td>
             <td>{$projectRow['jobtitle']}</td>
             <td>{$projectRow['companyname']}</td>
             <td>{$projectRow['jobdescription']}</td>

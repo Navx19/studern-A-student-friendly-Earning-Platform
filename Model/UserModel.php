@@ -10,7 +10,7 @@ class UserModel {
     }
 
     public function emailExists($email) {
-        $stmt = $this->conn->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT userId FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $res = $stmt->get_result();
