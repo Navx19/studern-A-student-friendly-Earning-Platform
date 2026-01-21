@@ -3,13 +3,11 @@ session_start();
 
 require_once "../../Controller/ProjectController.php";
 
-// Enforce login: Redirect if not logged in
 //$isLoggedIn = isset($_SESSION['user_id']) || isset($_SESSION['student_id']);
 //if (!$isLoggedIn) {
     //header("Location: signin.php");
     //exit;
 //}
-
 if (!isset($_SESSION['applied_projects'])) {
     $_SESSION['applied_projects'] = [];
 }
@@ -110,4 +108,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['project_id'])) {
 <script src="../projects.js"></script>
 
 </body>
+
 </html>
