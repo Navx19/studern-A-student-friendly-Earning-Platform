@@ -13,6 +13,7 @@ $applications = $model->getApplicationsByCustomer($customerId);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Customer Dashboard</title>
@@ -27,7 +28,7 @@ $applications = $model->getApplicationsByCustomer($customerId);
             xhr.open("POST", "../../Controller/ApproveControl.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-            xhr.onload = function () {
+            xhr.onload = function() {
                 try {
                     let res = JSON.parse(xhr.responseText);
                     result.style.color = res.success ? "green" : "red";
@@ -45,6 +46,7 @@ $applications = $model->getApplicationsByCustomer($customerId);
         }
     </script>
 </head>
+
 <body>
     <div class="header">
         <h2>studern</h2>
@@ -86,7 +88,7 @@ $applications = $model->getApplicationsByCustomer($customerId);
                     if ($app['status'] !== 'approved') {
                         echo "<button onclick='approveRequest(" . htmlspecialchars($app['request_id']) . ")'>Approve</button>";
                     } else {
-                        echo "Approved";
+                        echo "approved";
                     }
                     echo "</td></tr>";
                 }
@@ -98,5 +100,5 @@ $applications = $model->getApplicationsByCustomer($customerId);
         <p id="result" class="result-message"></p>
     </div>
 </body>
-</html>
 
+</html>
