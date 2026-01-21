@@ -10,20 +10,21 @@ class ApplicationsModel {
     }
 
     public function getApplicationsByCustomer($customerId) {
-        $sql = "
-            SELECT
-                j.jobtitle,
-                j.jobId,
-                r.status,
-                u.userId,
-                u.name,
-                u.email
-            FROM jobs j
-            JOIN request r ON j.jobId = r.jobId
-            JOIN users u ON r.userId = u.userId
-            WHERE j.customerId = ?
-            ORDER BY j.jobId, r.request_date DESC
-        ";
+        $sql = "SELECT
+        j.jobtitle,
+        j.jobId,
+        r.status,
+        u.userId,
+        u.name,
+        u.email,
+        r.request_id
+    FROM jobs j
+    JOIN request r ON j.jobId = r.jobId
+    JOIN users u ON r.userId = u.userId
+    WHERE j.customerId = ?
+    ORDER BY j.jobId, r.request_date DESC
+";
+
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $customerId);
@@ -38,4 +39,32 @@ class ApplicationsModel {
         $stmt->close();
         return $applications;
     }
+
+    public function approveRequest($requestId, $customerId) {
+    // Find the jobId for this request
+    $stmt = $this->conn->prepare("SELECT jobId FROM request WHERE request_id=?");
+    $stmt->bind_param("i", $requestId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if (!$row = $result->fetch_assoc()) {
+        return false;
+    }
+    $jobId = $row['jobId'];
+    $stmt->close();
+
+    // Approve this request
+    $stmt = $this->conn->prepare("UPDATE request SET status='approved' WHERE request_id=?");
+    $stmt->bind_param("i", $requestId);
+    $stmt->execute();
+    $stmt->close();
+
+    // Reject all other requests for the same job
+    $stmt = $this->conn->prepare("UPDATE request SET status='rejected' WHERE jobId=? AND request_id<>?");
+    $stmt->bind_param("ii", $jobId, $requestId);
+    $stmt->execute();
+    $stmt->close();
+
+    return true;
+}
+
 }

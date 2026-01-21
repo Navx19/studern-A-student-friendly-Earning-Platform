@@ -32,6 +32,6 @@ if (!isset($_SESSION['id'])) {
     <?php endif; ?>
 
     <br>
-    <button type="button" onclick="window.location.href='Company_View/customerhome.php'">Back</button>
+    <button type="button" onclick="window.location.href='Logout.php'">Logout </button>
 </body>
 </html>

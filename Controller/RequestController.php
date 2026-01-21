@@ -2,6 +2,8 @@
 require_once __DIR__ . "/../Model/RequestModel.php";
 
 class RequestController {
+    private $model;
+
     public function __construct() {
         $this->model = new RequestModel();
     }
