@@ -134,6 +134,25 @@ class AdminModel
     return $messages;
 }
 
+public function findProject($projectId) {
+    $stmt = $this->conn->prepare("SELECT * FROM jobs WHERE jobId=?");
+    $stmt->bind_param("i", $projectId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+public function updateProject($projectId, $title, $description) {
+    $stmt = $this->conn->prepare("UPDATE jobs SET jobtitle=?, jobdescription=? WHERE jobId=?");
+    $stmt->bind_param("sss", $title, $description, $projectId);
+    return $stmt->execute();
+}
+
+public function deleteProject($projectId) {
+    $stmt = $this->conn->prepare("DELETE FROM jobs WHERE jobId=?");
+    $stmt->bind_param("i", $projectId);
+    return $stmt->execute();
+}
+
 
 
 
