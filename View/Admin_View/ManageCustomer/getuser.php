@@ -5,7 +5,10 @@ $adminModel = new AdminModel();
 <!DOCTYPE html>
 <html>
 
-<head></head>
+<head>
+   <link rel="stylesheet" href="">
+
+</head>
 
 <body>
     <h1>Customer Information</h1>

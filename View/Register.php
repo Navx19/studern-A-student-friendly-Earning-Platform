@@ -1,13 +1,13 @@
-
 <?php
- session_start(); 
- ?>
+session_start();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-theme">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="register.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | studern</title>
+    <link rel="stylesheet" href="Css/register.css">
 
     <script>
         function registerUser() {
@@ -88,38 +88,63 @@
     </script>
 </head>
 
-<body>
+<body class="dark-theme">
 
-<h2>Create Account</h2>
+<div class="register-page">
 
-<form onsubmit="event.preventDefault(); registerUser();">
+    <div class="register-card glass">
 
-    Name:
-    <input type="text" id="name" placeholder="Enter your name"><br>
+        <h2 class="register-title">Create Account</h2>
+        <p class="register-subtitle">Join studern and start building your future</p>
 
-    Email:
-    <input type="email" id="email" onkeyup="checkEmail()" placeholder="Enter your email"><br>
+        <form id="registerForm" class="register-form" onsubmit="event.preventDefault(); registerUser();">
 
-    Password:
-    <input type="password" id="password" placeholder="Enter your password"><br>
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" id="name" placeholder="Enter your name" autocomplete="name">
+            </div>
 
-    Confirm Password:
-    <input type="password" id="confirm_password" placeholder="Confirm your password"><br><br>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" id="email" onkeyup="checkEmail()" placeholder="Enter your email" autocomplete="email">
+                <span id="emailError" class="error-text"></span>
+            </div>
 
-    Register As:<br>
-    <select id="role">
-        <option value="">Select role</option>
-        <option value="student">Student</option>
-        <option value="customer">Customer</option>
-    </select><br><br>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="new-password">
+            </div>
 
-    <button type="submit">Register</button>
-    <input type="reset" value="Reset">
-</form>
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" id="confirm_password" placeholder="Confirm your password" autocomplete="new-password">
+            </div>
 
-<p id="result"></p>
+            <div class="form-group">
+                <label class="form-label">Register As</label>
+                <select id="role">
+                    <option value="">Select role</option>
+                    <option value="student">Student</option>
+                    <option value="customer">Customer</option>
+                </select>
+            </div>
 
-<p>Already have an account? <a href="Login.php">Login</a></p>
+            <div class="form-actions">
+                <button type="submit" class="btn-register">Register</button>
+                <input type="reset" value="Reset" class="btn-reset">
+            </div>
+
+            <div id="result" class="result-message"></div>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="Login.php" class="login-link-text">Login</a>
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

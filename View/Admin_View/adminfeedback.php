@@ -16,6 +16,7 @@ $messages = $adminModel->getAllMessages();
 <head>
     <meta charset="UTF-8">
     <title>Admin Feedback</title>
+    <link rel="stylesheet" href="feedback.css">
 </head>
 <body>
     <h2>Feedback</h2>
