@@ -1,15 +1,18 @@
 <?php
 require_once "dbconnect.php";
 
-class ApplicationsModel {
+class ApplicationsModel
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new DatabaseConnection();
         $this->conn = $db->openConnection();
     }
 
-    public function getApplicationsByCustomer($customerId) {
+    public function getApplicationsByCustomer($customerId)
+    {
         $sql = "SELECT
         j.jobtitle,
         j.jobId,
@@ -40,31 +43,31 @@ class ApplicationsModel {
         return $applications;
     }
 
-    public function approveRequest($requestId, $customerId) {
-    // Find the jobId for this request
-    $stmt = $this->conn->prepare("SELECT jobId FROM request WHERE request_id=?");
-    $stmt->bind_param("i", $requestId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if (!$row = $result->fetch_assoc()) {
-        return false;
+    public function approveRequest($requestId, $customerId)
+    {
+        // job khuji
+        $stmt = $this->conn->prepare("SELECT jobId FROM request WHERE request_id=?");
+        $stmt->bind_param("i", $requestId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if (!$row = $result->fetch_assoc()) {
+            return false;
+        }
+        $jobId = $row['jobId'];
+        $stmt->close();
+
+        // jodi eta approve hoi
+        $stmt = $this->conn->prepare("UPDATE request SET status='approved' WHERE request_id=?");
+        $stmt->bind_param("i", $requestId);
+        $stmt->execute();
+        $stmt->close();
+
+        // baki gula reject
+        $stmt = $this->conn->prepare("UPDATE request SET status='rejected' WHERE jobId=? AND request_id=?");
+        $stmt->bind_param("ii", $jobId, $requestId);
+        $stmt->execute();
+        $stmt->close();
+
+        return true;
     }
-    $jobId = $row['jobId'];
-    $stmt->close();
-
-    // Approve this request
-    $stmt = $this->conn->prepare("UPDATE request SET status='approved' WHERE request_id=?");
-    $stmt->bind_param("i", $requestId);
-    $stmt->execute();
-    $stmt->close();
-
-    // Reject all other requests for the same job
-    $stmt = $this->conn->prepare("UPDATE request SET status='rejected' WHERE jobId=? AND request_id<>?");
-    $stmt->bind_param("ii", $jobId, $requestId);
-    $stmt->execute();
-    $stmt->close();
-
-    return true;
-}
-
 }

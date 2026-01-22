@@ -5,8 +5,6 @@ $rememberedPass  = isset($_COOKIE['remember_pass']) ? $_COOKIE['remember_pass'] 
 <!DOCTYPE html>
 <html lang="en" class="dark-theme">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | studern</title>
     <link rel="stylesheet" href="Css/login.css">
     
@@ -102,8 +100,7 @@ $rememberedPass  = isset($_COOKIE['remember_pass']) ? $_COOKIE['remember_pass'] 
 
         </form>
 
-        <div class="register-link">
-            Don't have an account? <a href="Register.php" class="register-link-text">Register</a>
+        <div class="register-link"> Don't have an account? <a href="Register.php" class="register-link-text">Register</a>
         </div>
 
     </div>

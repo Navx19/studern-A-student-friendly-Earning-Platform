@@ -1,7 +1,9 @@
 <?php
 session_start();
 include "../../Controller/RequestController.php";
+
 $controller = new RequestController();
+
 $applications = $controller->getApplications();
 ?>
 <!DOCTYPE html>

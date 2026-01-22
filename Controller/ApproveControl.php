@@ -18,7 +18,7 @@ $customerId = $_SESSION['id'];
 
 $model = new ApplicationsModel();
 
-// Approve this request and reject others for the same job
+//reject others
 $success = $model->approveRequest($requestId, $customerId);
 
 if ($success) {

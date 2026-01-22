@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/../../Model/adminModel.php";
+
 $adminModel = new AdminModel();
 
 $students = $adminModel->getAllStudents();

@@ -44,7 +44,7 @@ session_start();
             
             if (jobFile) {
                 let allowed = ['image/jpeg', 'image/png', 'application/pdf'];
-                let maxSize = 2 * 1024 * 1024; // 2MB
+                let maxSize = 2 * 1024 * 1024; 
 
                 if (!allowed.includes(jobFile.type)) {
                     result.style.color = "red";
@@ -66,7 +66,7 @@ session_start();
             xhr.open("POST", "../../Controller/FormControl.php", true);
 
             xhr.onload = function () {
-                console.log("Raw response:", xhr.responseText); // Debug
+                console.log("Raw response:", xhr.responseText); // Debug er jonno
                 try {
                     let res = JSON.parse(xhr.responseText);
                     result.style.color = res.success ? "green" : "red";

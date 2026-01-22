@@ -5,8 +5,7 @@ class RequestModel
 {
     private $conn;
 
-    public function __construct()
-    {
+    public function __construct(){
         $db = new DatabaseConnection();
         $this->conn = $db->openConnection();
     }

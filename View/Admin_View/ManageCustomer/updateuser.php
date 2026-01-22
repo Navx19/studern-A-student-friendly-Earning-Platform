@@ -6,6 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }
 
 require_once __DIR__ . "/../../../Model/adminModel.php";
+
 $adminModel = new AdminModel();
 
 $user = $adminModel->findUser($_GET["user_id"]);

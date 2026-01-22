@@ -11,7 +11,7 @@ $studentName = $_SESSION['id'] ?? 'Student';
     <link rel="stylesheet" href="../studentindex.css">
 </head>
 <body>
-    <img class="gradient_image" src="../../Resources/gradient.png" alt="gradient background">
+    <img class="gradient_image" src="../../Resources/gradient.png">
     <spline-viewer class="robot" url="https://prod.spline.design/VWDannDaaPiUZtfs/scene.splinecode"></spline-viewer>
 
     <div class="layerblur"></div>
@@ -41,8 +41,6 @@ $studentName = $_SESSION['id'] ?? 'Student';
                 </div>
                 <h1>studern</h1>
                 <p class="description">Build your career and <br>help the tech giants!</p>
-
-                    <!-- Profile button -->
                     <a href="studentprofile.php" class="btn_profile">
                         My Profile
                     </a>

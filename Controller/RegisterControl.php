@@ -9,6 +9,18 @@ $password = trim($_POST["password"] ?? "");
 $confirm  = trim($_POST["confirm_password"] ?? "");
 $role     = trim($_POST["role"] ?? "");
 
+
+if (isset($_POST["email"]) && !isset($_POST["name"])) {
+    $userModel = new UserModel();
+    echo $userModel->emailExists($_POST["email"])
+        ? " Email already exists"
+        : " Email available";
+    exit;
+}
+
+
+
+
 if ($name === "" || $email === "" || $password === "" || $confirm === "" || $role === "") {
     echo json_encode(["success" => false, "message" => "All fields are required"]);
     exit;

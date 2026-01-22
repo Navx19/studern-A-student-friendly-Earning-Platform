@@ -30,8 +30,8 @@ table th, table td {
 }
 
 table th {
-    background: #5300c5;
-    color: #fff;
+    background: blueviolet;
+    color: peachpuff;
     font-weight: 600;
     font-size: 0.95rem;
 }

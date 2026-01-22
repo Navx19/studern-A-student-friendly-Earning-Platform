@@ -18,5 +18,4 @@ class RequestController {
     }
 }
 
-// Instantiate controller when included
 $controller = new RequestController();

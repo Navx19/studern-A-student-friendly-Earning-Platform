@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $customerId = $_SESSION['id'];
+
 $model = new ApplicationsModel();
 $applications = $model->getApplicationsByCustomer($customerId);
 ?>

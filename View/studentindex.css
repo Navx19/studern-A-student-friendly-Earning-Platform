@@ -1,0 +1,207 @@
+.dashboard {
+    background-color: black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #e7e7e7;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.motto {
+    position: relative;
+    color: white;
+    font-size: 70px;
+    top: 30px;
+    left: 30px;
+}
+
+.robot {
+    position: absolute;
+    inline-size: auto;
+    width: 1200px;
+    height: 1200px;
+    top: -250px;
+    right: -170px;
+}
+
+.gradient_image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.layerblur {
+    position: absolute;
+    height: 0;
+    width: 480px;
+    top: 20%;
+    right: 0;
+    box-shadow: 0 0 700px 15px white;
+    rotate: -30deg;
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 80px;
+    z-index: 999;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-left: 36%;
+}
+
+nav a {
+    font-size: 16px;
+    letter-spacing: 1.6px;
+    transition: color 0.2s ease;
+    text-decoration: dotted;
+    color: inherit;
+}
+
+nav a:hover {
+    color: #a7a7a7;
+}
+
+.btn_signin {
+    position: absolute;
+    top: 0;
+    right: 100px;
+    background-color: #a7a7a7;
+    color: black;
+    padding: 12.8px 32px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.btn_signin:hover {
+    background-color: white;
+}
+
+.buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.btn_projects,
+.btn_signup {
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn_projects {
+    background: linear-gradient(135deg, #7f42a7, #5300c5);
+    color: white;
+}
+
+.btn_projects:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(83, 0, 197, 0.45);
+}
+
+.btn_signup {
+    background: #a7a7a7;
+    color: black;
+}
+
+.btn_signup:hover {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 255, 255, 0.25);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+    padding-top: 40px;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: -100px;  
+    margin-left: 80px; 
+    max-width: 620px; 
+}
+
+.tag-box {
+    position: relative;
+    width: 220px;
+    height: 38px;
+    border-radius: 50px;
+    background: linear-gradient(to right, #656565, #7f42a7, #6600c5, #5300a0, #757575, #656565);
+    background-size: 300%;
+    animation: gradientFlow 6s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+    margin-bottom: 0;
+}
+
+@keyframes gradientFlow {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+.tag {
+    position: absolute;
+    inset: 4px;
+    background-color: black;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #c0c0c0;
+    transition: color 0.4s ease;
+}
+
+.tag-box:hover .tag {
+    color: #a78bfa;
+}
+
+h1 {
+    font-size: 5.5rem;
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 0.90;
+}
+
+.description {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 0 0 48px 0;
+    color: #d0d0d0;
+}
