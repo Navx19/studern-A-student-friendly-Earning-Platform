@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 30px 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #a78bfa;
+    margin-bottom: 40px;
+    font-size: 2.8rem;
+    text-shadow: 0 2px 10px rgba(167, 139, 250, 0.4);
+    letter-spacing: 1px;
+}
+
+h2 {
+    color: #c4b5fd;
+    margin: 40px 0 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #5300c5;
+    padding-bottom: 10px;
+    max-width: 500px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(17, 17, 17, 0.85);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(83, 0, 197, 0.35);
+    backdrop-filter: blur(6px);
+    margin-bottom: 30px;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+}
+
+th {
+    background: linear-gradient(135deg, #5300c5, #7f42a7);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 0.95rem;
+}
+
+td {
+    border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+    color: #d0d0d0;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background: rgba(127, 66, 167, 0.15);
+    transition: background 0.2s ease;
+}
+
+a {
+    color: #a78bfa;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: #c4b5fd;
+    text-decoration: underline;
+}
+
+.action-link.delete {
+    color: #ff6b6b;
+}
+
+.action-link.delete:hover {
+    color: #ff8787;
+    text-decoration: underline;
+}
+
+/* Form Styles */
+form {
+    background: rgba(17, 17, 17, 0.8);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(127, 66, 167, 0.3);
+    box-shadow: 0 8px 32px rgba(83, 0, 197, 0.25);
+    max-width: 500px;
+    margin: 20px 0;
+    backdrop-filter: blur(8px);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c4b5fd;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #5300a0;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25);
+}
+
+input[type="submit"] {
+    background: linear-gradient(135deg, #7f42a7, #5300c5);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(83, 0, 197, 0.4);
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(127, 66, 167, 0.6);
+    background: linear-gradient(135deg, #a78bfa, #7f42a7);
+}
+
+/* Back / Cancel link */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #a0a0ff;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: #c4b5fd;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #5300a0;
+        border-radius: 12px;
+    }
+    
+    td {
+        border: none;
+        border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    td:before {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #a78bfa;
+    }
+    
+    td:nth-of-type(1):before { content: "ID"; }
+    td:nth-of-type(2):before { content: "Name"; }
+    td:nth-of-type(3):before { content: "Email"; }
+    td:nth-of-type(4):before { content: "Update"; }
+    td:nth-of-type(5):before { content: "Delete"; }
+}
